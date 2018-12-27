@@ -1,0 +1,32 @@
+<script>
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+        fn();
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+function fadeOut(el) {
+    el.style.opacity = 1;
+  
+    var last = +new Date();
+    var tick = function() {
+        el.style.opacity = +el.style.opacity - (new Date() - last) / 400;
+        last = +new Date();
+    
+        if (+el.style.opacity > 0) {
+            (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+        } else {
+            el.style.opacity = 0;
+            el.style.display = 'none';
+        }
+    };
+  
+    tick();
+  }
+ready(function(){
+    setTimeout(function(){
+        fadeOut(document.getElementById('preloader'));
+    },3000);
+});
+</script>
